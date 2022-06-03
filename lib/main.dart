@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tourist_app/screens/map_screen.dart';
+import 'package:tourist_app/screens/attraction_map_screen.dart';
 
 void main() {
   runApp(const MyApp());
