@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   yandex_mapkit: ^3.0.0
   cupertino_icons: ^1.0.2
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
