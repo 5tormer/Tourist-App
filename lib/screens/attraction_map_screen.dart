@@ -19,10 +19,11 @@ class _MapScreenState extends State<MapScreen> {
   String _currentAttractionName = '';
   String _currentAttractionImageLink = '';
   String _currentAttractionDescription = '';
+  late Attraction _selectedAttraction;
 
   @override
   void initState() {
-    AttractionMapService().getHacks().then((listOfAttractions) {
+    AttractionMapService().getAttraction().then((listOfAttractions) {
       _listOfAttractions = listOfAttractions;
       _mapObjects = listOfAttractions
           .map(
@@ -45,16 +46,18 @@ class _MapScreenState extends State<MapScreen> {
               ),
               onTap: (placemark, point) async {
                 setState(() {
-                  var _selectedAttraction = _listOfAttractions.firstWhere(
+                  _selectedAttraction = _listOfAttractions.firstWhere(
                       (element) =>
                           MapObjectId(element.sightName!) == placemark.mapId);
-                  setUpAllFields(_selectedAttraction);
                 });
-                if (_panelController.isPanelOpen) {
+                if (_panelController.panelPosition > 0.4) {
                   await _panelController.close();
+                  setUpAllFields(_selectedAttraction);
+                  await _openPanel();
+                } else {
+                  setUpAllFields(_selectedAttraction);
                   await _openPanel();
                 }
-                await _openPanel();
               },
             ),
           )
