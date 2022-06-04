@@ -52,7 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: passwordController,
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
-                  onTap: () {
+                  onLongPressUp: () {
+                    setState(() {
+                      visibility = !visibility;
+                    });
+                  },
+                  onLongPressDown: (details) {
                     setState(() {
                       visibility = !visibility;
                     });
