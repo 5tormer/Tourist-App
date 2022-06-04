@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tourist_app/screens/login_screen.dart';
 import 'package:tourist_app/screens/main_screen.dart';
 import 'package:tourist_app/services/auth_service.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
@@ -24,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Регистрация',
+          'Войти',
           style: TextStyle(color: Colors.black),
         ),
         iconTheme: const IconThemeData(
@@ -52,20 +51,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               obscureText: visibility,
               controller: passwordController,
               decoration: InputDecoration(
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        visibility = !visibility;
-                      });
-                    },
-                    child: visibility
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  labelText: 'Введите пароль'),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      visibility = !visibility;
+                    });
+                  },
+                  child: visibility
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                labelText: 'Введите пароль',
+              ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   elevation: MaterialStateProperty.all(0),
                 ),
                 onPressed: () async {
-                  var _result = await context.read<AuthService>().signUp(
+                  var _result = await context.read<AuthService>().signIn(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                       );
@@ -92,21 +92,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const MainScreen()),
-                          (_) => false,
-                        )
+                          (_) => false)
                       : null;
                 },
-                child: const Text("Зарегистрироваться"),
+                child: const Text("Войти"),
               ),
-            ),
-            TextButton(
-                onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    ),
-                child: const Text('Уже есть аккаунт? Войти'))
+            )
           ],
         ),
       ),
