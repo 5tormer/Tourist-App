@@ -27,6 +27,15 @@ class _MapScreenState extends State<MapScreen> {
       _mapObjects = listOfAttractions
           .map(
             (attraction) => PlacemarkMapObject(
+              icon: PlacemarkIcon.single(
+                PlacemarkIconStyle(
+                  image: BitmapDescriptor.fromAssetImage(
+                    'assets/placemark_icon.png',
+                  ),
+                  rotationType: RotationType.noRotation,
+                  scale: 1,
+                ),
+              ),
               mapId: MapObjectId(
                 attraction.sightName!,
               ),
