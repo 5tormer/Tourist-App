@@ -15,7 +15,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _descriptionTextController =
       TextEditingController();
   String? description;
-  List<String>? keySkills;
   String? avatarLink;
 
   FirebaseStorageService firebaseStorageService = FirebaseStorageService();
